@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>امتحان البرمجة والذكاء الاصطناعي | Programming & AI Exam</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5fb;--card:#fff;--ink:#101828;--mut:#5b6478;--line:#e2e6f0;--acc:#4f46e5;--acc2:#e0e7ff;--ok:#059669;--okb:#d1fae5;--bad:#dc2626;--badb:#fee2e2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--card:#151b30;--ink:#eef1fb;--mut:#9aa4bf;--line:#262e4a;--acc:#818cf8;--acc2:#252b5c;--okb:#0d3b2e;--badb:#4a1a1a}}
+:root[data-theme="dark"]{--bg:#0b1020;--card:#151b30;--ink:#eef1fb;--mut:#9aa4bf;--line:#262e4a;--acc:#818cf8;--acc2:#252b5c;--okb:#0d3b2e;--badb:#4a1a1a}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,system-ui,sans-serif;line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.brand{font-weight:800;font-size:1.05rem}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.lang{background:var(--card);color:var(--ink);border:1px solid var(--line);padding:6px 14px;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+.hero{background:linear-gradient(135deg,#312e81,#4f46e5 60%,#7c3aed);color:#fff;border:0}
+.hero h1{margin:0 0 8px;font-size:1.8rem;font-weight:800;line-height:1.3}
+.hero p{margin:4px 0;opacity:.9}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.chip{background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:.85rem}
+.btn{background:var(--acc);color:#fff;padding:12px 26px;font-weight:700}
+.hero .btn{background:#fff;color:#312e81}
+.btn.sec{background:var(--acc2);color:var(--acc)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:0 0 14px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem;margin-bottom:8px}
+.q{font-size:1.2rem;font-weight:700;margin:6px 0 18px}
+.opt{display:flex;gap:12px;align-items:center;width:100%;text-align:start;background:var(--bg);color:var(--ink);border:2px solid var(--line);padding:12px 14px;margin-bottom:10px;border-radius:14px;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--acc)}
+.opt.sel{border-color:var(--acc);background:var(--acc2)}
+.opt b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);font-size:.85rem}
+.opt.sel b{background:var(--acc);color:#fff;border-color:var(--acc)}
+.opt.ok{border-color:var(--ok);background:var(--okb)}.opt.no{border-color:var(--bad);background:var(--badb)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.dots button{width:34px;height:34px;background:var(--card);color:var(--mut);border:1px solid var(--line);font-size:.8rem;border-radius:10px}
+.dots .ans{background:var(--acc2);color:var(--acc);border-color:var(--acc)}
+.dots .cur{background:var(--acc);color:#fff}
+.score{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.ring{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--acc) calc(var(--p)*1%),var(--line) 0)}
+.ring span{width:98px;height:98px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:1.7rem;font-weight:800}
+.row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:.92rem}
+.row .bar{flex:1;margin:0}.row .bar i{background:var(--ok)}
+.rev{margin-top:14px;border-inline-start:5px solid var(--bad);padding:6px 14px;background:var(--bg);border-radius:10px}
+.rev.g{border-color:var(--ok)}
+.rev small{color:var(--mut)}
+@media(max-width:520px){.hero h1{font-size:1.4rem}.card{padding:18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand" id="brand"></div><button class="lang" id="lang"></button></header>
+<main id="app"></main>
+</div>
+<script>
+const T={ar:{brand:"البرمجة والذكاء الاصطناعي",title:"الامتحان الشامل",sub:"الوحدة الأولى كاملة + الدرس 2-1 (التشفير والمصادقة)",q:"سؤال",all:"كل الأسئلة اختيار من متعدد",start:"ابدأ الامتحان",of:"من",prev:"السابق",next:"التالي",fin:"إنهاء وتسليم",ans:"تمت الإجابة",lang:"English",res:"النتيجة",again:"إعادة الامتحان",rv:"مراجعة الأخطاء",yours:"إجابتك",right:"الصحيحة",none:"بدون إجابة",perf:"ممتاز! أنت جاهز",good:"جيد جدًا، راجع النقاط الناقصة",mid:"مقبول، محتاج مذاكرة أكتر",low:"راجع الدروس وحاول تاني",unans:"لسه فيه أسئلة بدون إجابة، هتتحسب خطأ. تسلّم؟",perfect:"لا يوجد أخطاء، أحسنت!"},en:{brand:"Programming & AI",title:"Comprehensive Exam",sub:"All of Unit 1 + Lesson 2-1 (Encryption & Authentication)",q:"questions",all:"All multiple choice",start:"Start exam",of:"of",prev:"Previous",next:"Next",fin:"Finish & submit",ans:"answered",lang:"عربي",res:"Result",again:"Retake exam",rv:"Review mistakes",yours:"Your answer",right:"Correct",none:"No answer",perf:"Excellent! You're ready",good:"Very good, review the gaps",mid:"Fair, more study needed",low:"Review the lessons and retry",unans:"Some questions are unanswered and will count wrong. Submit?",perfect:"No mistakes, well done!"}};
+const L=["1-1 تطور تكنولوجيا المعلومات|1-1 IT Evolution","1-2 كيف يعمل الذكاء الاصطناعي|1-2 How AI Works","1-3 الذكاء الاصطناعي في الحياة والصناعة|1-3 AI in Life & Industry","1-4 أخلاقيات الذكاء الاصطناعي|1-4 AI Ethics","2-1 التشفير والمصادقة|2-1 Encryption & Authentication"];
+// [lesson, question, correct, wrong1, wrong2, wrong3] — "ar|en"; no | means same text
+const D=[
+[0,"ما الترتيب الزمني الصحيح لمراحل تطور تكنولوجيا المعلومات؟|What is the correct chronological order of IT stages?","حواسيب كبيرة ← شخصية ← إنترنت ← هواتف ذكية ← سحابة|Mainframes → PCs → Internet → Smartphones → Cloud","إنترنت ← حواسيب كبيرة ← سحابة ← هواتف ذكية|Internet → Mainframes → Cloud → Smartphones","هواتف ذكية ← إنترنت ← حواسيب كبيرة ← سحابة|Smartphones → Internet → Mainframes → Cloud","سحابة ← هواتف ← شخصية ← إنترنت|Cloud → Smartphones → PCs → Internet"],
+[0,"ينص قانون مور على أن عدد الترانزستورات في الدائرة المتكاملة:|Moore's Law states that transistor count on a chip:","يتضاعف تقريبًا كل عامين|Doubles about every two years","يقل للنصف كل عامين|Halves every two years","يثبت دون تغيير|Stays constant","يتضاعف كل عشر سنوات|Doubles every ten years"],
+[0,"قانون مور في حقيقته:|Moore's Law is actually:","ملاحظة تجريبية وليست قانونًا فيزيائيًا|An empirical observation, not a physical law","قانون فيزيائي ثابت|A fixed physical law","معادلة رياضية مثبتة|A proven mathematical equation","قاعدة قانونية حكومية|A government regulation"],
+[0,"العمل عن بُعد (Remote Work) هو:|Remote Work is:","أداء العمل من المنزل أو موقع بعيد عبر الإنترنت|Doing work from home or a remote site via the Internet","بيع السلع والخدمات عبر الإنترنت|Selling goods and services online","الدفع بوسائل غير نقدية|Paying by non-cash means","تقديم الدروس عبر الإنترنت|Delivering lessons online"],
+[0,"الحوسبة الطرفية (Edge Computing) تعني معالجة البيانات:|Edge Computing means processing data:","فورًا على الجهاز نفسه|Immediately on the device itself","فقط في السحابة|Only in the cloud","بعد يوم كامل|After a full day","يدويًا على الورق|Manually on paper"],
+[0,"ما الفرق بين الواقع المعزز AR والافتراضي VR؟|What is the difference between AR and VR?","AR يضيف عناصر رقمية فوق العالم الحقيقي وVR ينقلك لعالم افتراضي|AR adds digital elements over the real world; VR moves you into a virtual one","AR ينقلك لعالم افتراضي كامل وVR يضيف معلومات|AR moves you to a full virtual world; VR adds info","لا فرق بينهما|There is no difference","كلاهما لا يحتاج أجهزة|Neither needs any device"],
+[0,"الحوسبة الكمومية:|Quantum computing:","تتفوق في فئات محددة من المسائل ولا تسرّع كل الحسابات|Excels at specific problem classes; doesn't speed up all computing","تسرّع جميع أنواع الحسابات|Speeds up all types of computation","بديل مباشر لكل الحواسيب التقليدية|A direct replacement for all computers","تعمل بدون كهرباء|Works without electricity"],
+[0,"لماذا تعالج السيارة ذاتية القيادة البيانات على متنها بدل السحابة؟|Why does a self-driving car process data onboard instead of the cloud?","لأن التأخير في المعالجة قد يؤثر في السلامة|Because processing delay could affect safety","لأن السحابة لا تخزن البيانات|Because the cloud can't store data","لأن الكاميرات تعمل بدون إنترنت فقط|Because cameras only work offline","لأن الحوسبة الطرفية أرخص دائمًا|Because edge computing is always cheaper"],
+[1,"الترتيب الصحيح من الأوسع إلى الأضيق:|Correct order from broadest to narrowest:","AI ← ML ← DL ← GenAI","ML ← AI ← DL ← GenAI","GenAI ← DL ← ML ← AI","DL ← GenAI ← AI ← ML"],
+[1,"التعلّم الآلي (ML) هو:|Machine Learning (ML) is:","نماذج تتعلم الأنماط من البيانات بدل برمجة كل قاعدة|Models learning patterns from data instead of coding every rule","برمجة كل قاعدة يدويًا|Hand-coding every rule","تخزين الملفات على السحابة|Storing files in the cloud","عرض الواقع الافتراضي|Displaying virtual reality"],
+[1,"معلومات غير صحيحة تبدو مقنعة ينتجها نموذج ذكاء اصطناعي تسمى:|Convincing but false information produced by an AI model is called:","الهلوسة|Hallucination","التشفير|Encryption","التراكب الكمومي|Quantum superposition","المصادقة|Authentication"],
+[1,"التعلّم العميق (DL) يعتمد على:|Deep Learning (DL) relies on:","شبكات عصبية متعددة الطبقات|Multi-layer neural networks","قواعد مبرمجة يدويًا فقط|Only hand-coded rules","غياب الشبكات العصبية|No neural networks at all","جداول ورقية|Paper tables"],
+[1,"الشبكة العصبية الاصطناعية (ANN):|An Artificial Neural Network (ANN) is:","نموذج مستوحى من ارتباط العصبونات تتغير أوزانه أثناء التدريب|A model inspired by neurons whose weights change during training","جهاز تخزين بيانات|A data storage device","بروتوكول للشبكات|A networking protocol","قاعدة بيانات فقط|Just a database"],
+[1,"الذكاء الاصطناعي التوليدي (GenAI) هو أنظمة:|Generative AI (GenAI) is systems that:","تنشئ محتوى جديدًا كالنصوص والصور والصوت|Create new content such as text, images and audio","تحذف البيانات القديمة|Delete old data","تشفر الاتصالات|Encrypt communications","تعرض صفحات الويب|Display web pages"],
+[1,"أنظمة الذكاء الاصطناعي الحالية توصف بأنها ضيقة النطاق أي:|Current AI systems are called narrow, meaning:","مصممة لمهام محددة ولا تفهم العالم كالإنسان|Built for specific tasks and don't understand the world like humans","تفهم كل شيء مثل البشر|Understand everything like humans","لا تحتاج إلى بيانات|Need no data","لا تخطئ أبدًا|Never make mistakes"],
+[1,"القاعدة الذهبية عند استخدام مخرجات الذكاء التوليدي:|The golden rule when using GenAI outputs:","التحقق من مصدر موثوق قبل الاستخدام|Verify with a trusted source before use","الثقة العمياء فيها|Trust them blindly","تجاهل المراجعة|Skip reviewing","نسخها كما هي|Copy them as-is"],
+[2,"نظام يستخدم بيانات السلوك السابق للتنبؤ بالتفضيلات (مثل يوتيوب):|A system that uses past behavior to predict preferences (like YouTube):","أنظمة التوصية|Recommendation systems","المساعدات الصوتية|Voice assistants","الترجمة الآلية|Machine translation","الصيانة التنبؤية|Predictive maintenance"],
+[2,"الكشف عن الأمراض من صور الأشعة السينية مثال على الذكاء الاصطناعي في:|Detecting disease from X-ray images is AI in:","الرعاية الصحية|Healthcare","الزراعة|Agriculture","اللوجستيات|Logistics","التصنيع|Manufacturing"],
+[2,"الصيانة التنبؤية تعني:|Predictive maintenance means:","التنبؤ بأعطال الآلات قبل وقوعها|Predicting machine failures before they occur","ترجمة النصوص تلقائيًا|Translating text automatically","فتح الهاتف بالوجه|Unlocking a phone by face","اقتراح الأفلام|Suggesting movies"],
+[2,"مشكلة الصندوق الأسود تعني:|The black box problem means:","الوصول لنتيجة دون وضوح كيف توصل إليها النموذج|Getting a result without clarity on how the model reached it","سهولة تفسير قرار النموذج|Easily explaining the model's decision","صندوق تخزين مادي|A physical storage box","خطأ في الطباعة|A printing error"],
+[2,"تحسين مسارات سيارات التوزيع واختيار أسرع طريق يندرج تحت:|Optimizing delivery routes and choosing the fastest path falls under:","اللوجستيات|Logistics","الزراعة|Agriculture","الرعاية الصحية|Healthcare","التصنيع|Manufacturing"],
+[2,"لماذا يلزم طبيب بشري لتأكيد التشخيص النهائي؟|Why must a human doctor confirm the final diagnosis?","لأن أثر الخطأ مرتفع (حياة إنسان)|Because the cost of error is high (a human life)","لأن الآلة بطيئة دائمًا|Because machines are always slow","لأن الأطباء أرخص|Because doctors are cheaper","لتقليل عدد المستخدمين|To reduce the number of users"],
+[2,"من الاستخدامات التي تتطلب حذرًا خاصًا:|A use that requires special caution:","التعامل مع البيانات الشخصية والحساسة|Handling personal and sensitive data","تحسين مسارات التوصيل|Optimizing delivery routes","الكشف عن الآفات الزراعية|Detecting crop pests","فحص جودة المنتج|Product quality inspection"],
+[2,"تحليل صور المحاصيل لاكتشاف الإصابة مبكرًا مثال في:|Analyzing crop images to detect infection early is an example in:","الزراعة|Agriculture","التصنيع|Manufacturing","اللوجستيات|Logistics","الرعاية الصحية|Healthcare"],
+[3,"انحراف في نظام ذكاء اصطناعي قد يؤدي لنتائج غير عادلة يسمى:|A deviation in an AI system that may lead to unfair results is:","التحيز الخوارزمي|Algorithmic bias","الهلوسة|Hallucination","الصندوق الأسود|Black box","التشفير|Encryption"],
+[3,"من الأسباب الرئيسية للتحيز الخوارزمي:|A main cause of algorithmic bias:","بيانات تدريب غير كافية عن سمات معينة|Training data lacking certain attributes","زيادة سرعة المعالج|A faster processor","كثرة المستخدمين|Many users","حجم الشاشة|Screen size"],
+[3,"المبدأ الذي يعني تحديد المسؤول عن نتائج النظام وقراراته:|The principle of identifying who is responsible for a system's results:","المساءلة|Accountability","الشفافية|Transparency","العدالة|Fairness","الخصوصية|Privacy"],
+[3,"تقنية تتيح للبشر فهم سبب قرارات الذكاء الاصطناعي:|A technique letting humans understand why AI made a decision:","الذكاء القابل للتفسير XAI|Explainable AI (XAI)","TLS","API","PDCA"],
+[3,"الشفافية تعني:|Transparency means:","وضوح كيف يعمل النظام وكيف توصل لقراره|Clarity on how the system works and reached its decision","ألا يميز النظام ضد فئات|The system doesn't discriminate","حماية بيانات الأفراد|Protecting personal data","تحديد المسؤول عن الخطأ|Identifying who is responsible for errors"],
+[3,"حماية الخصوصية تعني:|Privacy protection means:","احترام بيانات الأفراد وعدم استخدامها دون وجه حق|Respecting personal data and not using it without justification","جمع أكبر قدر من البيانات|Collecting as much data as possible","إخفاء كيفية عمل النظام|Hiding how the system works","تسريع المعالجة|Speeding up processing"],
+[3,"نظام تعرّف على الوجه أقل دقة مع مجموعات عرقية معينة؛ المبدأ الأكثر ارتباطًا:|A face recognition system is less accurate for some ethnic groups; the most related principle:","العدالة|Fairness","السرعة|Speed","التخزين|Storage","السعر|Price"],
+[3,"المبادئ الأربعة لأخلاقيات الذكاء الاصطناعي هي:|The four principles of AI ethics are:","العدالة والشفافية والخصوصية والمساءلة|Fairness, transparency, privacy, accountability","السرعة والحجم واللون والسعر|Speed, size, color, price","التشفير والمصادقة والتوقيع والشهادة|Encryption, authentication, signature, certificate","الإنترنت والسحابة والهاتف والحاسوب|Internet, cloud, phone, computer"],
+[4,"HTTPS هو:|HTTPS is:","بروتوكول HTTP منقول عبر TLS يوفر سرية البيانات وسلامتها|HTTP carried over TLS, providing data confidentiality and integrity","بروتوكول لنقل الملفات فقط|A file-transfer protocol only","جدار حماية|A firewall","برنامج مضاد للفيروسات|An antivirus program"],
+[4,"الغرض الأساسي من الشهادة الرقمية في HTTPS:|The main purpose of a digital certificate in HTTPS:","التحقق من هوية الخادم واسم النطاق|Verifying the server's identity and domain name","تسريع نقل البيانات|Speeding up data transfer","ضغط الصفحات|Compressing pages","منع الفيروسات|Blocking viruses"],
+[4,"الترتيب الصحيح لمصافحة TLS:|Correct order of the TLS handshake:","شهادة ← مفاتيح الجلسة ← تشفير متماثل للبيانات|Certificate → session keys → symmetric data encryption","تشفير متماثل ← شهادة ← مفاتيح|Symmetric encryption → certificate → keys","مفاتيح ← بيانات ← شهادة|Keys → data → certificate","بيانات ← مفاتيح ← شهادة|Data → keys → certificate"],
+[4,"أي تقنية تحمي بيانات الاتصال نفسها بكفاءة بعد إنشاء الجلسة؟|Which technique protects the connection data efficiently after the session is set up?","التشفير المتماثل|Symmetric encryption","التشفير بالمفتاح العام|Public-key encryption","التوقيع الرقمي|Digital signature","الشهادة الرقمية|Digital certificate"],
+[4,"التشفير المتماثل يستخدم:|Symmetric encryption uses:","مفتاحًا واحدًا مشتركًا للتشفير وفك التشفير|One shared key for encryption and decryption","زوج مفاتيح عام وخاص|A public/private key pair","لا يستخدم مفاتيح|No keys","كلمة مرور فقط|A password only"],
+[4,"التشفير بالمفتاح العام:|Public-key encryption:","زوج مفاتيح: عام للنشر وخاص سري، ويُستخدم لتأسيس الجلسة والتحقق|A key pair: public shared, private secret; used to set up the session and verify identity","مفتاح واحد للجميع|One key for everyone","أسرع من المتماثل لتشفير البيانات الكبيرة|Faster than symmetric for bulk data","مفتاحان سريان معًا|Two secret keys together"],
+[4,"خاصية عدم الإنكار (Non-repudiation) تتحقق عن طريق:|Non-repudiation is achieved through:","التوقيع الرقمي|Digital signature","التشفير المتماثل|Symmetric encryption","جدار الحماية|A firewall","كلمة مرور قوية|A strong password"],
+[4,"المصادقة الثنائية (2FA) تتطلب:|Two-factor authentication (2FA) requires:","دليلين من فئتين مختلفتين على الأقل|Two proofs from at least two different categories","كلمتي مرور من نفس الفئة|Two passwords of the same category","دليلًا واحدًا فقط|Only one proof","سؤالين سريين معًا|Two secret questions"],
+[4,"مثال على «حاجة تملكها» في المصادقة:|An example of “something you have” in authentication:","رمز يتولد على تطبيق في هاتفك|A code generated by an app on your phone","كلمة المرور|A password","بصمة الإصبع|A fingerprint","اسم المستخدم|A username"],
+[4,"قفل HTTPS في المتصفح:|The HTTPS padlock in the browser:","لا يعني أن المحتوى آمن بصورة مطلقة|Doesn't mean the content is absolutely safe","يعني أن الموقع آمن تمامًا|Means the site is completely safe","يعني خلو الموقع من الفيروسات|Means the site is virus-free","يمنع كل الهجمات|Prevents every attack"]
+];
+let lang=localStorage.getItem?null:null;try{lang=localStorage.getItem('lang')}catch(e){}
+lang=lang||'ar';
+let S={view:'start',qs:[],i:0,a:[]};
+const $=id=>document.getElementById(id);
+const t=k=>T[lang][k];
+const pick=s=>{const p=s.split('|');return p.length>1?(lang==='ar'?p[0]:p[1]):s};
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function build(){S.qs=D.map(d=>({l:d[0],q:d[1],o:shuf([0,1,2,3].map(k=>({t:d[2+k],c:k===0})))}));S.qs=shuf(S.qs);S.a=S.qs.map(()=>-1);S.i=0}
+function setLang(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';$('brand').textContent=t('brand');$('lang').textContent=t('lang');try{localStorage.setItem('lang',lang)}catch(e){}}
+$('lang').onclick=()=>{lang=lang==='ar'?'en':'ar';setLang();render()};
+const ltr=['A','B','C','D'],ar=['أ','ب','ج','د'];
+const lt=k=>lang==='ar'?ar[k]:ltr[k];
+function render(){const m=$('app');
+if(S.view==='start'){m.innerHTML=`<div class="card hero"><h1>${t('title')}</h1><p>${t('sub')}</p><div class="chips"><span class="chip">${D.length} ${t('q')}</span><span class="chip">${t('all')}</span><span class="chip">AR / EN</span></div><button class="btn" id="go">${t('start')}</button></div>`;$('go').onclick=()=>{build();S.view='quiz';render()};return}
+if(S.view==='quiz'){const q=S.qs[S.i],n=S.qs.length,done=S.a.filter(x=>x>=0).length;
+m.innerHTML=`<div class="bar"><i style="width:${done/n*100}%"></i></div><div class="card"><div class="meta"><span>${S.i+1} ${t('of')} ${n}</span><span>${pick(L[q.l])}</span></div><div class="q">${pick(q.q)}</div>${q.o.map((o,k)=>`<button class="opt ${S.a[S.i]===k?'sel':''}" data-k="${k}"><b>${lt(k)}</b><span>${pick(o.t)}</span></button>`).join('')}<div class="nav"><button class="btn sec" id="pv" ${S.i?'':'disabled'}>${t('prev')}</button>${S.i<n-1?`<button class="btn" id="nx">${t('next')}</button>`:`<button class="btn" id="fn">${t('fin')}</button>`}</div></div><div class="dots">${S.qs.map((_,k)=>`<button data-j="${k}" class="${k===S.i?'cur':S.a[k]>=0?'ans':''}">${k+1}</button>`).join('')}</div><p class="meta">${done}/${n} ${t('ans')}</p>`;
+m.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{S.a[S.i]=+b.dataset.k;render()});
+m.querySelectorAll('.dots button').forEach(b=>b.onclick=()=>{S.i=+b.dataset.j;render()});
+$('pv').onclick=()=>{S.i--;render()};
+if($('nx'))$('nx').onclick=()=>{S.i++;render()};
+if($('fn'))$('fn').onclick=()=>{if(S.a.includes(-1)&&!confirm(t('unans')))return;S.view='res';render()};
+scrollTo(0,0);return}
+const n=S.qs.length,ok=S.qs.filter((q,i)=>S.a[i]>=0&&q.o[S.a[i]].c).length,p=Math.round(ok/n*100);
+const msg=p>=90?t('perf'):p>=75?t('good'):p>=50?t('mid'):t('low');
+const by=L.map((l,li)=>{const x=S.qs.map((q,i)=>[q,i]).filter(([q])=>q.l===li),c=x.filter(([q,i])=>S.a[i]>=0&&q.o[S.a[i]].c).length;return`<div class="row"><span style="min-width:150px">${pick(l)}</span><div class="bar"><i style="width:${c/x.length*100}%"></i></div><b>${c}/${x.length}</b></div>`}).join('');
+const wr=S.qs.map((q,i)=>[q,i]).filter(([q,i])=>!(S.a[i]>=0&&q.o[S.a[i]].c));
+m.innerHTML=`<div class="card"><h2 style="margin-top:0">${t('res')}</h2><div class="score"><div class="ring" style="--p:${p}"><span>${p}%</span></div><div><b style="font-size:1.4rem">${ok} / ${n}</b><div>${msg}</div></div></div><div style="margin-top:18px">${by}</div><div class="nav" style="justify-content:flex-start"><button class="btn" id="rt">${t('again')}</button></div></div><h3>${t('rv')}</h3>${wr.length?wr.map(([q,i])=>`<div class="rev"><b>${pick(q.q)}</b><br><small>${t('yours')}:</small> ${S.a[i]>=0?pick(q.o[S.a[i]].t):t('none')}<br><small>${t('right')}:</small> <b style="color:var(--ok)">${pick(q.o.find(o=>o.c).t)}</b></div>`).join(''):`<div class="rev g">${t('perfect')}</div>`}`;
+$('rt').onclick=()=>{S.view='start';render()};scrollTo(0,0)}
+setLang();render();
+</script>
+</body>
+</html>
